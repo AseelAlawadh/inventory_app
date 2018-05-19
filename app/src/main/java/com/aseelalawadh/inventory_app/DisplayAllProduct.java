@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayAllProduct extends AppCompatActivity {
@@ -20,67 +23,86 @@ public class DisplayAllProduct extends AppCompatActivity {
     public ListView listView;
     private InventoryDBHelper mInventoryDBHelper;
     private AddProduct mAddProduct;
+    //private ArrayAdapter<String> adapter ;
+    private ProductAdapter adapter;
+    private ArrayList<Product> productList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_all);
 
-        listView = (ListView) findViewById(R.id.listView);
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DisplayAllProduct.this, EditProduct.class);
+                startActivity(intent);
+            }
+        });
+
+
+        listView = findViewById(R.id.listView);
+
         mInventoryDBHelper = new InventoryDBHelper(getApplicationContext());
         mInventoryDBHelper.open();
 
-        final List<Product> productList = mInventoryDBHelper.getAllProduct();
+        productList = (ArrayList<Product>) mInventoryDBHelper.getAllProduct();
+
         mInventoryDBHelper.close();
 
-        String[] productNames = new String[productList.size()];
-        for (int i = 0; i < productList.size(); i++) {
-            productNames[i] = productList.get(i).getProductName();
-        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DisplayAllProduct.this, android.R.layout.simple_list_item_1, android.R.id.text1, productNames);
+        adapter = new ProductAdapter(this, productList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int postion, long l) {
+                Product item = productList.get(postion);
                 new AlertDialog.Builder(DisplayAllProduct.this)
                         .setTitle("Select Your option")
-                        .setMessage("Delete or Update or show")
+                        .setMessage("Delete or Update or Show")
                         .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Intent intent = new Intent(DisplayAllProduct.this, EditProduct.class);
-                                intent.putExtra("id", productList.get(postion).getId());
+                                Product item = productList.get(postion);
+                                intent.putExtra("id", item.getId());
                                 startActivity(intent);
                             }
                         })
                         .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                Product item = productList.get(postion);
                                 mInventoryDBHelper.open();
-                                mInventoryDBHelper.deletProduct(productList.get(postion).getId());
+                                mInventoryDBHelper.deletProduct(item.getId());
                                 mInventoryDBHelper.close();
                                 Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
-
                             }
                         })
                         .setNeutralButton("Show", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                               /* mInventoryDBHelper.open();
-                                mInventoryDBHelper.getAllProduct();
-                               mInventoryDBHelper.close();*/
+
                                 Intent intent = new Intent(DisplayAllProduct.this, ProductDetails.class);
+                                Product item = productList.get(postion);
+                                Log.v("", item.getProductName());
+                                intent.putExtra("id", item.getId());
+
                                 startActivity(intent);
 
                             }
-                        })
-                        .show();
+                        }).show();
             }
         });
 
-    }
+        ListView product_ListView = (ListView) findViewById(R.id.listView);
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        View emptyView = findViewById(R.id.empty_view);
+        product_ListView.setEmptyView(emptyView);
 
+    }
 
 
     @Override
@@ -99,16 +121,17 @@ public class DisplayAllProduct extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_insert_data:
-               // insertProduct();
+                // insertProduct();
                 Intent intent = new Intent(DisplayAllProduct.this, AddProduct.class);
                 startActivity(intent);
+                finish();
 
                 //displayDatabaseInfo();
                 return true;
 
             case R.id.action_delete_all_entries:
                 mInventoryDBHelper.deletProduct(item.getItemId());
-               // deleteProduct();
+                // deleteProduct();
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -79,10 +79,10 @@
 
 
         <Button
+            android:id="@+id/addProduct_BT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
-            android:id="@+id/addBT"
+            android:text="Add Product"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </ScrollView>

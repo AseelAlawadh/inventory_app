@@ -21,22 +21,22 @@ public class EditProduct extends AppCompatActivity {
     private EditText supplierPhone;*/
     Button add;
 
-    InventoryDBHelper mInventoryDBHelper;
+    private InventoryDBHelper mInventoryDBHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        Intent intent=getIntent();
-        id=intent.getIntExtra("id", 0);
+        Intent intent = getIntent();
+        id = intent.getIntExtra("id", 0);
 
 
         productName = findViewById(R.id.productName_EditText);
         productPrice = findViewById(R.id.productPrice_Edittext);
         productQuantity = findViewById(R.id.productQuantity_Edittext);
+        add = findViewById(R.id.addProduct_BT);
 
-
-        add=(Button)findViewById(R.id.addBT);
         mInventoryDBHelper =new InventoryDBHelper(getApplicationContext());
 
         mInventoryDBHelper.open();
@@ -57,7 +57,7 @@ public class EditProduct extends AppCompatActivity {
                     mInventoryDBHelper.open();
                     mInventoryDBHelper.updateProduct(id,productName.getText().toString(),Integer.parseInt(productPrice.getText().toString()),Integer.parseInt(productQuantity.getText().toString()));
                     mInventoryDBHelper.close();
-                    Toast.makeText(getApplicationContext(),"Done",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"you'r info is updated",Toast.LENGTH_LONG).show();
                     finish();
                 }else{
                     Toast.makeText(getApplicationContext(),"Filed cannot be empty!",Toast.LENGTH_LONG).show();
@@ -82,10 +82,10 @@ public class EditProduct extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+     /*   //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

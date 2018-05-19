@@ -30,7 +30,7 @@ public class AddProduct extends AppCompatActivity {
         supplierName = findViewById(R.id.supplierName_Edittext);
         supplierPhone = findViewById(R.id.supplierPhone_Edittext);
 
-        add = (Button) findViewById(R.id.addBT);
+        add = (Button) findViewById(R.id.addProduct_BT);
         mInventoryDBHelper = new InventoryDBHelper(getApplicationContext());
 
 
@@ -44,7 +44,7 @@ public class AddProduct extends AppCompatActivity {
                             Integer.parseInt(productQuantity.getText().toString()), supplierName.getText().toString(),
                             supplierPhone.getText().toString());
                     mInventoryDBHelper.close();
-                    Toast.makeText(getApplicationContext(), "Product is add ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Product is added ", Toast.LENGTH_LONG).show();
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "Filed cannot be empty!", Toast.LENGTH_LONG).show();

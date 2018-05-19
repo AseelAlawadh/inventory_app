@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Parcel;
 import android.util.Log;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class InventoryDBHelper {
     }
 
     public Product getProduct(int id){
-        Product products=new Product();
+        Product products = new Product();
         Cursor cursor=db.rawQuery("SELECT * FROM "+InventoryContract.TABLE_NAME+" WHERE "+InventoryContract._ID+" = ?",new String[]{id+""});
         if(cursor.getCount()>0){
             cursor.moveToFirst();
@@ -109,6 +110,8 @@ public class InventoryDBHelper {
 
             productList.add(products);
             cursor.moveToNext();
+
+
 
         }
         cursor.close();
