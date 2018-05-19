@@ -11,17 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EditProduct extends AppCompatActivity {
+public class EditProductActivity extends AppCompatActivity {
 
+    /*private EditText supplierName;
+    private EditText supplierPhone;*/
+    Button add;
     private int id;
     private EditText productName;
     private EditText productPrice;
     private EditText productQuantity;
-    /*private EditText supplierName;
-    private EditText supplierPhone;*/
-    Button add;
-
     private InventoryDBHelper mInventoryDBHelper;
+    private Product products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,39 +31,36 @@ public class EditProduct extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
 
-
         productName = findViewById(R.id.productName_EditText);
         productPrice = findViewById(R.id.productPrice_Edittext);
         productQuantity = findViewById(R.id.productQuantity_Edittext);
-        add = findViewById(R.id.addProduct_BT);
+        // add = findViewById(R.id.addProduct_BT);
 
-        mInventoryDBHelper =new InventoryDBHelper(getApplicationContext());
-
+        mInventoryDBHelper = new InventoryDBHelper(getApplicationContext());
         mInventoryDBHelper.open();
-
         Product products = mInventoryDBHelper.getProduct(id);
         mInventoryDBHelper.close();
 
         productName.setText(products.getProductName());
-        Log.v("EditProduct", String.valueOf(products.getProductPrice()));
         productPrice.setText(String.valueOf(products.getProductPrice()));
         productQuantity.setText(String.valueOf(products.getProductQuantity()));
 
+        /*
         add.setText("Edit");
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!productName.getText().toString().isEmpty() && !productPrice.getText().toString().isEmpty() && !productQuantity.getText().toString().isEmpty()){
+                if (!productName.getText().toString().isEmpty() && !productPrice.getText().toString().isEmpty() && !productQuantity.getText().toString().isEmpty()) {
                     mInventoryDBHelper.open();
-                    mInventoryDBHelper.updateProduct(id,productName.getText().toString(),Integer.parseInt(productPrice.getText().toString()),Integer.parseInt(productQuantity.getText().toString()));
+                    mInventoryDBHelper.updateProduct(id, productName.getText().toString(), Integer.parseInt(productPrice.getText().toString()), Integer.parseInt(productQuantity.getText().toString()));
                     mInventoryDBHelper.close();
-                    Toast.makeText(getApplicationContext(),"you'r info is updated",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "you'r info is updated", Toast.LENGTH_LONG).show();
                     finish();
-                }else{
-                    Toast.makeText(getApplicationContext(),"Filed cannot be empty!",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Filed cannot be empty!", Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
 
     }
 
@@ -81,7 +78,25 @@ public class EditProduct extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        switch (id) {
+            case R.id.action_save:
 
+                String name = productName.getText().toString();
+                String price = productPrice.getText().toString();
+                String quantity = productQuantity.getText().toString();
+                if (!name.isEmpty() && !price.isEmpty() && !quantity.isEmpty()) {
+                    mInventoryDBHelper.open();
+                    mInventoryDBHelper.updateProduct(id, name, Integer.parseInt(price), Integer.parseInt(quantity));
+                    mInventoryDBHelper.close();
+                    Toast.makeText(getApplicationContext(), "you'r info is updated", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Filed cannot be empty!", Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                break;
+        }
      /*   //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
             return true;
