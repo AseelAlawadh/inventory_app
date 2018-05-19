@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/white"
-    tools:context="com.aseelalawadh.inventory_app.EditProduct">
+    tools:context="com.aseelalawadh.inventory_app.EditProductActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
@@ -54,12 +54,6 @@
             android:ems="10" />
 
 
-        <Button
-            android:id="@+id/addProduct_BT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/update"
-            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ListProductsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,21 +17,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayAllProduct"
-            android:label="@string/title_activity_display_all" />
-        <activity
-            android:name=".AddProduct"
+            android:name=".AddProductActivity"
             android:label="@string/title_activity_add_product"
-            android:parentActivityName=".DisplayAllProduct"/>
+            android:parentActivityName=".ListProductsActivity"/>
         <activity
-            android:name=".EditProduct"
+            android:name=".EditProductActivity"
             android:label="@string/title_activity_edit_product"
-            android:parentActivityName=".DisplayAllProduct"/>
+            android:parentActivityName=".ListProductsActivity"/>
 
         <activity
             android:name=".ProductDetails"
             android:label="@string/title_activity_product_details"
-            android:parentActivityName=".DisplayAllProduct"/>
+            android:parentActivityName=".ListProductsActivity"/>
     </application>
 
 </manifest>

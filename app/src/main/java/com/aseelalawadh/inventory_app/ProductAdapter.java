@@ -2,12 +2,15 @@ package com.aseelalawadh.inventory_app;
 
 
 import android.content.Context;
-
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,6 +22,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     private TextView name;
     private TextView price;
     private TextView quantity;
+    private Button sale_button;
 
     public ProductAdapter(Context context, ArrayList<Product> items) {
         super(context, 0, items);
@@ -30,14 +34,22 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.display_list_item, parent, false);
-            id = listItemView.findViewById(R.id.id_textView);
-            name = listItemView.findViewById(R.id.name_textView);
-            price = listItemView.findViewById(R.id.price_textView);
-            quantity = listItemView.findViewById(R.id.quantity_textView);
         }
 
-        Product item = getItem(position);
+        id = listItemView.findViewById(R.id.id_textView);
+        name = listItemView.findViewById(R.id.name_textView);
+        price = listItemView.findViewById(R.id.price_textView);
+        quantity = listItemView.findViewById(R.id.quantity_textView);
+        sale_button = listItemView.findViewById(R.id.sale_button);
+        sale_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Button bt = (Button) view;
+                Toast.makeText(getContext(), "Button", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        Product item = getItem(position);
         id.setText(String.valueOf(position + 1));
         name.setText(item.getProductName());
         price.setText(String.valueOf(item.getProductPrice()));
@@ -45,6 +57,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         return listItemView;
     }
+
 
 }
 

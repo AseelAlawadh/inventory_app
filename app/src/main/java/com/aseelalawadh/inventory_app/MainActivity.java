@@ -20,14 +20,14 @@ public class MainActivity extends AppCompatActivity {
         displayAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),DisplayAllProduct.class));
+                startActivity(new Intent(getApplicationContext(),ListProductsActivity.class));
             }
         });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),AddProduct.class));
+                startActivity(new Intent(getApplicationContext(),AddProductActivity.class));
             }
         });}
 
