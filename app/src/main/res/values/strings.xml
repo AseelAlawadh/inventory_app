@@ -12,9 +12,25 @@
     <string name="product_name">Product Name</string>
     <string name="delete_all_product">Delete All product</string>
     <string name="action_save">Save</string>
-    <string name="action_delete">delete</string>
+    <string name="action_delete">Delete</string>
     <string name="add_product_menu">Add Product</string>
     <string name="sale">Sale</string>
     <string name="empty_view_title_text">No Product in dataBase...</string>
     <string name="empty_view_subtitle_text">Get started by adding a Product</string>
+    <string name="order_product">Order</string>
+    <string name="delete_product">Delete Product</string>
+    <string name="delete_massage">Do you want delete item ..?</string>
+    <string name="delete">Delete</string>
+    <string name="delete_item_successful">successful item delete</string>
+    <string name="cancel">Cansel</string>
+    <string name="done">Done</string>
+    <string name="error_with_delete">There is an error while delete the product</string>
+    <string name="select_option">Select Your option</string>
+    <string name="options">Delete or Update or Show</string>
+    <string name="edit">Edit</string>
+    <string name="show">Show</string>
+    <string name="null_massage">Filed cannot be empty!</string>
+    <string name="add_item_successful">successful item added</string>
+    <string name="updated">you\'r info is updated</string>
+
 </resources>

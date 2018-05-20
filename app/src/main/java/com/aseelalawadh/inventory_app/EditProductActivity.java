@@ -3,12 +3,12 @@ package com.aseelalawadh.inventory_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EditProductActivity extends AppCompatActivity {
@@ -20,8 +20,10 @@ public class EditProductActivity extends AppCompatActivity {
     private EditText productName;
     private EditText productPrice;
     private EditText productQuantity;
+    private int mInteger = 0;
+    private Button increase_button;
+    private Button decrease_button;
     private InventoryDBHelper mInventoryDBHelper;
-    private Product products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,8 @@ public class EditProductActivity extends AppCompatActivity {
         productName = findViewById(R.id.productName_EditText);
         productPrice = findViewById(R.id.productPrice_Edittext);
         productQuantity = findViewById(R.id.productQuantity_Edittext);
-        // add = findViewById(R.id.addProduct_BT);
+        increase_button = findViewById(R.id.increase_button);
+        decrease_button = findViewById(R.id.decrease_button);
 
         mInventoryDBHelper = new InventoryDBHelper(getApplicationContext());
         mInventoryDBHelper.open();
@@ -44,26 +47,38 @@ public class EditProductActivity extends AppCompatActivity {
         productName.setText(products.getProductName());
         productPrice.setText(String.valueOf(products.getProductPrice()));
         productQuantity.setText(String.valueOf(products.getProductQuantity()));
-
-        /*
-        add.setText("Edit");
-        add.setOnClickListener(new View.OnClickListener() {
+        mInteger = products.getProductQuantity();
+        increase_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (!productName.getText().toString().isEmpty() && !productPrice.getText().toString().isEmpty() && !productQuantity.getText().toString().isEmpty()) {
-                    mInventoryDBHelper.open();
-                    mInventoryDBHelper.updateProduct(id, productName.getText().toString(), Integer.parseInt(productPrice.getText().toString()), Integer.parseInt(productQuantity.getText().toString()));
-                    mInventoryDBHelper.close();
-                    Toast.makeText(getApplicationContext(), "you'r info is updated", Toast.LENGTH_LONG).show();
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Filed cannot be empty!", Toast.LENGTH_LONG).show();
-                }
+            public void onClick(View v) {
+                increaseInteger(productQuantity);
             }
-        });*/
-
+        });
+        decrease_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                decreaseInteger(productQuantity);
+            }
+        });
     }
 
+    public void increaseInteger(View view) {
+        mInteger = mInteger + 1;
+        display(mInteger);
+    }
+
+    public void decreaseInteger(View view) {
+        if ((mInteger - 1) < 0) {
+            return;
+        }
+        mInteger = mInteger - 1;
+        display(mInteger);
+    }
+
+    private void display(int number) {
+        TextView displayInteger = findViewById(R.id.productQuantity_Edittext);
+        displayInteger.setText(String.valueOf(number));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,7 +95,6 @@ public class EditProductActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_save:
-
                 String name = productName.getText().toString();
                 String price = productPrice.getText().toString();
                 String quantity = productQuantity.getText().toString();
@@ -88,20 +102,15 @@ public class EditProductActivity extends AppCompatActivity {
                     mInventoryDBHelper.open();
                     mInventoryDBHelper.updateProduct(id, name, Integer.parseInt(price), Integer.parseInt(quantity));
                     mInventoryDBHelper.close();
-                    Toast.makeText(getApplicationContext(), "you'r info is updated", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.updated, Toast.LENGTH_LONG).show();
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Filed cannot be empty!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.null_massage, Toast.LENGTH_LONG).show();
                 }
                 break;
             default:
                 break;
         }
-     /*   //noinspection SimplifiableIfStatement
-        if (id == R.id.action_save) {
-            return true;
-        }*/
-
         return super.onOptionsItemSelected(item);
     }
 }

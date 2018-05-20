@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aseelalawadh.inventory_app">
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -26,7 +27,7 @@
             android:parentActivityName=".ListProductsActivity"/>
 
         <activity
-            android:name=".ProductDetails"
+            android:name=".ProductDetailsActivity"
             android:label="@string/title_activity_product_details"
             android:parentActivityName=".ListProductsActivity"/>
     </application>

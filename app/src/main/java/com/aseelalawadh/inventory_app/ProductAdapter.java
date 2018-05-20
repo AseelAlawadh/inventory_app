@@ -2,8 +2,6 @@ package com.aseelalawadh.inventory_app;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 public class ProductAdapter extends ArrayAdapter<Product> {
 
     private Context mContext;
-
     private TextView id;
     private TextView name;
     private TextView price;

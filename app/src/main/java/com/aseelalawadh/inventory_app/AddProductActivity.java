@@ -31,7 +31,6 @@ public class AddProductActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -66,10 +65,10 @@ public class AddProductActivity extends AppCompatActivity {
             mInventoryDBHelper.open();
             mInventoryDBHelper.createProduct(name, Integer.parseInt(price), Integer.parseInt(quantity), supplier_naame, supplier_phone);
             mInventoryDBHelper.close();
-            Toast.makeText(getApplicationContext(), "Product is added ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.add_item_successful, Toast.LENGTH_LONG).show();
             finish();
         } else {
-            Toast.makeText(getApplicationContext(), "Filed cannot be empty!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.null_massage, Toast.LENGTH_LONG).show();
         }
     }
 }

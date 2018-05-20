@@ -38,9 +38,7 @@ public class ListProductsActivity extends AppCompatActivity {
             }
         });
 
-
         listView = findViewById(R.id.listView);
-
         mInventoryDBHelper = new InventoryDBHelper(getApplicationContext());
         mInventoryDBHelper.open();
         productList = (ArrayList<Product>) mInventoryDBHelper.getAllProduct();
@@ -53,9 +51,9 @@ public class ListProductsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, final int postion, long l) {
                 Product item = productList.get(postion);
                 new AlertDialog.Builder(ListProductsActivity.this)
-                        .setTitle("Select Your option")
-                        .setMessage("Delete or Update or Show")
-                        .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.select_option)
+                        .setMessage(R.string.options)
+                        .setPositiveButton(R.string.edit, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Intent intent = new Intent(ListProductsActivity.this, EditProductActivity.class);
@@ -64,27 +62,24 @@ public class ListProductsActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         })
-                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.delete, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Product item = productList.get(postion);
                                 mInventoryDBHelper.open();
-                                mInventoryDBHelper.deletProduct(item.getId());
+                                mInventoryDBHelper.deleteProduct(item.getId());
                                 mInventoryDBHelper.close();
-                                Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.done, Toast.LENGTH_LONG).show();
                             }
                         })
-                        .setNeutralButton("Show", new DialogInterface.OnClickListener() {
+                        .setNeutralButton(R.string.show, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-                                Intent intent = new Intent(ListProductsActivity.this, ProductDetails.class);
+                                Intent intent = new Intent(ListProductsActivity.this, ProductDetailsActivity.class);
                                 Product item = productList.get(postion);
                                 Log.v("", item.getProductName());
                                 intent.putExtra("id", item.getId());
-
                                 startActivity(intent);
-
                             }
                         }).show();
             }
@@ -94,7 +89,6 @@ public class ListProductsActivity extends AppCompatActivity {
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
         product_ListView.setEmptyView(emptyView);
-
     }
 
 
@@ -110,21 +104,16 @@ public class ListProductsActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
 
             case R.id.action_insert_data:
-                // insertProduct();
                 Intent intent = new Intent(ListProductsActivity.this, AddProductActivity.class);
                 startActivity(intent);
                 finish();
-
-                //displayDatabaseInfo();
                 return true;
 
             case R.id.action_delete_all_entries:
-                mInventoryDBHelper.deletProduct(item.getItemId());
-                // deleteProduct();
+                mInventoryDBHelper.deleteProduct(item.getItemId());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -140,6 +129,5 @@ public class ListProductsActivity extends AppCompatActivity {
         adapter.addAll(productList);
         adapter.notifyDataSetChanged();
         mInventoryDBHelper.close();
-
     }
 }

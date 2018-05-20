@@ -64,6 +64,13 @@
                 android:layout_margin="8dp"
                 android:text="@string/quantity" />
 
+            <Button
+                android:id="@+id/increase_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:text="+" />
+
             <TextView
                 android:id="@+id/productQuantity_textView"
                 android:layout_width="wrap_content"
@@ -71,7 +78,15 @@
                 android:layout_margin="8dp"
                 android:text="@string/quantity" />
 
+            <Button
+                android:id="@+id/decrease_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:text="-" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,26 +137,20 @@
             android:padding="8dp">
 
             <Button
-                android:id="@+id/addProduct_button"
+                android:id="@+id/OrderProduct_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Add" />
-
-
-            <Button
-                android:id="@+id/increase_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Order" />
+                android:text="@string/order_product" />
 
             <Button
-                android:id="@+id/decrease_button"
+                android:id="@+id/deleteProduct_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Add" />
+                android:text="@string/delete_product" />
+
+
         </LinearLayout>
 
     </LinearLayout>
