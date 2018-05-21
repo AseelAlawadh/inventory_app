@@ -43,13 +43,13 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         sale_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if( (item.getProductPrice()-1) < 0)
+                if( (item.getProductQuantity()-1) < 0)
                 {
                  return;
                 }
-                price.setText(String.valueOf(item.getProductPrice()-1));
+                quantity.setText(String.valueOf(item.getProductQuantity()-1));
                 mInventoryDBHelper.open();
-                mInventoryDBHelper.updateProduct(item.getId(), item.getProductName(), item.getProductPrice()-1, item.getProductQuantity());
+                mInventoryDBHelper.updateProduct(item.getId(), item.getProductName(), item.getProductPrice(), item.getProductQuantity()-1);
                 mInventoryDBHelper.close();
             }
         });
