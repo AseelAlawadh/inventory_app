@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 public class EditProductActivity extends AppCompatActivity {
 
-    /*private EditText supplierName;
-    private EditText supplierPhone;*/
-    Button add;
     private int id;
     private EditText productName;
     private EditText productPrice;

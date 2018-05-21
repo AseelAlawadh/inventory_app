@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class ProductAdapter extends ArrayAdapter<Product> {
 
     private Context mContext;
+    private InventoryDBHelper mInventoryDBHelper ;
     private TextView id;
     private TextView name;
     private TextView price;
@@ -24,6 +25,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     public ProductAdapter(Context context, ArrayList<Product> items) {
         super(context, 0, items);
         mContext = context;
+        mInventoryDBHelper = new InventoryDBHelper(mContext);
     }
 
 
@@ -32,7 +34,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.display_list_item, parent, false);
         }
-
+        final Product item = getItem(position);
         id = listItemView.findViewById(R.id.id_textView);
         name = listItemView.findViewById(R.id.name_textView);
         price = listItemView.findViewById(R.id.price_textView);
@@ -41,12 +43,17 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         sale_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Button bt = (Button) view;
-                Toast.makeText(getContext(), "Button", Toast.LENGTH_SHORT).show();
+                if( (item.getProductPrice()-1) < 0)
+                {
+                 return;
+                }
+                price.setText(String.valueOf(item.getProductPrice()-1));
+                mInventoryDBHelper.open();
+                mInventoryDBHelper.updateProduct(item.getId(), item.getProductName(), item.getProductPrice()-1, item.getProductQuantity());
+                mInventoryDBHelper.close();
             }
         });
 
-        Product item = getItem(position);
         id.setText(String.valueOf(position + 1));
         name.setText(item.getProductName());
         price.setText(String.valueOf(item.getProductPrice()));

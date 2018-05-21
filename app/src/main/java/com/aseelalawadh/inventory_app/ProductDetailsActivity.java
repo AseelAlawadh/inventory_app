@@ -104,6 +104,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
     public void increaseInteger(View view) {
         mInteger = mInteger + 1;
         display(mInteger);
+        mInventoryDBHelper.open();
+        mInventoryDBHelper.updateProduct(product.getId(), product.getProductName(), product.getProductPrice(), mInteger);
+        mInventoryDBHelper.close();
     }
 
     public void decreaseInteger(View view) {
@@ -112,6 +115,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
         }
         mInteger = mInteger - 1;
         display(mInteger);
+
+        mInventoryDBHelper.open();
+        mInventoryDBHelper.updateProduct(product.getId(), product.getProductName(), product.getProductPrice(), mInteger);
+        mInventoryDBHelper.close();
     }
 
     private void display(int number) {
