@@ -3,9 +3,14 @@ package com.aseelalawadh.inventory_app;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class InventoryContract extends SQLiteOpenHelper {
+
+   public static final String CONTENT_AUTHORITY = "com.course.moritz.items"; //
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);//
+    public static final String PATH_ITEMS = "items"; //
 
     //table name
     public final static String TABLE_NAME = "inventory";
@@ -26,6 +31,9 @@ public class InventoryContract extends SQLiteOpenHelper {
             + COLUMN_INVENTORY_QUANTITY + " integer not null,"
             + COLUMN_INVENTORY_SUPPLIER_NAME + " text not null,"
             + COLUMN_INVENTORY_SUPPLIER_PHONE + " text not null)";
+
+    public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_ITEMS); //
+
 
     public InventoryContract(Context context) {
         super(context, DB_NAME, null, VERSION_NUMBER);

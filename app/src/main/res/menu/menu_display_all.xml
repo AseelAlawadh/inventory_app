@@ -7,9 +7,9 @@
         android:id="@+id/action_insert_data"
         android:title="@string/add_product_menu"
         app:showAsAction="never" />
-    <item
+   <!-- <item
         android:id="@+id/action_delete_all_entries"
         android:title="@string/delete_all_product"
         app:showAsAction="never" />
-
+-->
 </menu>

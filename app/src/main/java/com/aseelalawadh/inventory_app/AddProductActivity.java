@@ -66,7 +66,7 @@ public class AddProductActivity extends AppCompatActivity {
             mInventoryDBHelper.createProduct(name, Integer.parseInt(price), Integer.parseInt(quantity), supplier_naame, supplier_phone);
             mInventoryDBHelper.close();
             Toast.makeText(getApplicationContext(), R.string.add_item_successful, Toast.LENGTH_LONG).show();
-            finish();
+           finish();
         } else {
             Toast.makeText(getApplicationContext(), R.string.null_massage, Toast.LENGTH_LONG).show();
         }

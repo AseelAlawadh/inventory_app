@@ -70,6 +70,7 @@ public class ListProductsActivity extends AppCompatActivity {
                                 mInventoryDBHelper.deleteProduct(item.getId());
                                 mInventoryDBHelper.close();
                                 Toast.makeText(getApplicationContext(), R.string.done, Toast.LENGTH_LONG).show();
+
                             }
                         })
                         .setNeutralButton(R.string.show, new DialogInterface.OnClickListener() {
@@ -109,12 +110,11 @@ public class ListProductsActivity extends AppCompatActivity {
             case R.id.action_insert_data:
                 Intent intent = new Intent(ListProductsActivity.this, AddProductActivity.class);
                 startActivity(intent);
-                finish();
                 return true;
 
-            case R.id.action_delete_all_entries:
+        /*    case R.id.action_delete_all_entries:
                 mInventoryDBHelper.deleteProduct(item.getItemId());
-                return true;
+                return true;*/
         }
         return super.onOptionsItemSelected(item);
     }
