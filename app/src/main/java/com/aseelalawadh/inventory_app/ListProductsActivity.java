@@ -92,7 +92,6 @@ public class ListProductsActivity extends AppCompatActivity {
         product_ListView.setEmptyView(emptyView);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -111,10 +110,6 @@ public class ListProductsActivity extends AppCompatActivity {
                 Intent intent = new Intent(ListProductsActivity.this, AddProductActivity.class);
                 startActivity(intent);
                 return true;
-
-        /*    case R.id.action_delete_all_entries:
-                mInventoryDBHelper.deleteProduct(item.getItemId());
-                return true;*/
         }
         return super.onOptionsItemSelected(item);
     }

@@ -135,11 +135,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), R.string.error_with_delete, Toast.LENGTH_LONG).show();
         }
-
     }
 
     private void showDeleteDialog() {
-
         //Create an AlertDialog and set message
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.delete_massage);
